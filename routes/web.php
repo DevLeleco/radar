@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('https://radar-1.herokuapp.com/', function () {
+Route::get('/', function () {
     return view('dashboard');
 });
 
