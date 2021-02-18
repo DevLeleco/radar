@@ -14,6 +14,7 @@
   integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
   crossorigin="anonymous"></script>
 <script src=" {{ asset('vendor/jquery/jquery.js') }}"></script>
+<script src=" {{ asset('vendor/bootstrap/bootstrap.js') }}"></script>
 <script src=" {{ asset('vendor/sweet/sweetalert2@10.js') }}"></script>
 
 
