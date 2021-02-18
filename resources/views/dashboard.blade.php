@@ -1,55 +1,45 @@
 @extends('adminlte::page')
 
-
-
-    <h1>Painel</h1>
-
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+</style>
+<style>
+  .modal .modal-dialog {width: 30%}
+  </style>
 
 @section('content')
 
-<script
-  src="https://code.jquery.com/jquery-3.5.1.js"
-  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-  crossorigin="anonymous"></script>
 <script src=" {{ asset('vendor/jquery/jquery.js') }}"></script>
-<script src=" {{ asset('vendor/bootstrap/bootstrap.js') }}"></script>
+<script src=" {{ asset('vendor/sweet/sweetalert2@10.js') }}"></script>
 
-<div class="card card-default">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          
-
-
-
-          
-        </div> <!-- /.col -->
-        
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          
+<script>
+  @if(session('Alert'))
+  swal.fire('{{ session('Alert') }}')
+  @endif
+  @if(session('Danger'))
+  swal.fire('{{ session('Danger') }}')
+  @endif
+  @if(session('Reactivate'))
+  swal.fire('{{ session('Reactivate') }}')
+  @endif
+</script>
 
 
+<div class="jumbotron py-1">
+	<div class="container text-center">
+		<h1 class="display-4">Painel</h1>		
+		<p class="lead">Cadastre um Equipamento informando qual Unidade ele pertençe.</p>
+	</div>
+</div>
 
-        </div> <!-- /.col -->
-      
-        <!-- <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box bg-yellow">
-            <span class="info-box-icon"><i class="fa fa-user-tie"></i></span>
+ <!-- início do card 1 -->
+ <div class="card card-default">
+   
+</div>
+<!-- fim do card 1 -->
 
-            <div class="info-box-content">
-              <span class="info-box-text">Supervisor</span>
-              <span class="info-box-number">Dayvidson</span>
-            </div>  /.info-box-content -->
-          </div> <!-- /.info-box -->
-        </div> <!-- /.col -->
-      </div> 
-          <!-- /.card-body -->
-          <div class="card-footer">
-           
-          </div>
-        </div>
+
 
 
 @stop
-
 
