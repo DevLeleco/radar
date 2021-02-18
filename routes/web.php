@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('cliente');
+    return view('radar.cliente');
 });
 
 /********************************************* Con_Users*********************************************/
