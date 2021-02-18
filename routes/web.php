@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
-
+//Route::get('/', function () {
+//    return view('dashboard');
+//});
+Route::get('/','radar\Con_Cliente@form_cliente')->name('rt.cliente');
 /********************************************* Con_Users*********************************************/
 Route::get('/usuario','radar\Con_Usuario@form_usuario')->name('rt.usuario');
 Route::post('/usuario/add','radar\Con_Usuario@add_usuario')->name('rt.add_usuario');
