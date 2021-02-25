@@ -85,4 +85,9 @@ class Con_Usuario extends Controller
         $usuario->Save();
         return redirect()->back()->with('Alert', 'Senha resetada com sucesso, nova senha "prompt@2021"');
     }
+
+    public function dashboard()
+    {
+         return view('dashboard');
+    }
 }

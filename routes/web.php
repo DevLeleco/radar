@@ -12,8 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('welcome');
 });
+Route::get('/dashboard','radar\Con_Usuario@dashboard')->name('rt.dashboard');
 
 /********************************************* Con_Users*********************************************/
 Route::get('/usuario','radar\Con_Usuario@form_usuario')->name('rt.usuario');
