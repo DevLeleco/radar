@@ -1,9 +1,15 @@
-<!doctype html>
-<html lang="pt-BR">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Nova senha | Radar</title></head>
-<body style="font-family:sans-serif;max-width:26rem;margin:3rem auto;padding:0 1rem">
-    <h1>Definir nova senha</h1>
-    @if ($errors->any()) <p role="alert">{{ $errors->first() }}</p> @endif
+@extends('auth.layout')
+
+@section('title', 'Nova senha')
+
+@section('content')
+    <h1>Crie uma nova senha</h1>
+    <p class="auth-intro">Escolha uma senha segura para voltar ao Radar.</p>
+
+    @if ($errors->any())
+        <p class="auth-error" role="alert">{{ $errors->first() }}</p>
+    @endif
+
     <form method="post" action="{{ route('password.update') }}">
         @csrf
         <input type="hidden" name="token" value="{{ $token }}">
@@ -13,7 +19,7 @@
         <input id="password" type="password" name="password" required autocomplete="new-password">
         <label for="password_confirmation">Confirme a nova senha</label>
         <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password">
-        <button type="submit">Redefinir senha</button>
+        <button type="submit">Salvar nova senha</button>
     </form>
-</body>
-</html>
+    <a class="auth-link" href="{{ route('login') }}">Voltar para entrar</a>
+@endsection

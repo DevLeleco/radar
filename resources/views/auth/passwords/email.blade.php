@@ -1,16 +1,23 @@
-<!doctype html>
-<html lang="pt-BR">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Redefinir senha | Radar</title></head>
-<body style="font-family:sans-serif;max-width:26rem;margin:3rem auto;padding:0 1rem">
-    <h1>Redefinir senha</h1>
-    @if (session('status')) <p role="status">{{ session('status') }}</p> @endif
-    @if ($errors->any()) <p role="alert">{{ $errors->first() }}</p> @endif
+@extends('auth.layout')
+
+@section('title', 'Recuperar acesso')
+
+@section('content')
+    <h1>Recuperar acesso</h1>
+    <p class="auth-intro">Informe o e-mail da sua conta. Enviaremos instruções para criar uma nova senha.</p>
+
+    @if (session('status'))
+        <p class="auth-status" role="status">{{ session('status') }}</p>
+    @endif
+    @if ($errors->any())
+        <p class="auth-error" role="alert">{{ $errors->first() }}</p>
+    @endif
+
     <form method="post" action="{{ route('password.email') }}">
         @csrf
         <label for="email">E-mail</label>
-        <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email">
-        <button type="submit">Enviar link de redefinição</button>
+        <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="email">
+        <button type="submit">Enviar instruções</button>
     </form>
-    <p><a href="{{ route('login') }}">Voltar ao login</a></p>
-</body>
-</html>
+    <a class="auth-link" href="{{ route('login') }}">Voltar para entrar</a>
+@endsection

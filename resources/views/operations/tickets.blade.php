@@ -36,7 +36,7 @@
 </div>
 
  <!-- início do card 1 -->
- <div class="card card-default">
+ <div class="card card-default" id="novo-chamado">
     <form method="post"  action="{{route('tickets.store')}}" >
         @csrf
         <div class="card-body">

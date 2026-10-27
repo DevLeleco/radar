@@ -4,9 +4,11 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Radar\ClientController;
+use App\Http\Controllers\Radar\ClientDashboardController;
 use App\Http\Controllers\Radar\EquipmentController;
 use App\Http\Controllers\Radar\QrCodeController;
 use App\Http\Controllers\Radar\TechnicianController;
+use App\Http\Controllers\Radar\TechnicianDashboardController;
 use App\Http\Controllers\Radar\TicketController;
 use App\Http\Controllers\Radar\UnitController;
 use App\Http\Controllers\Radar\UserController;
@@ -25,6 +27,14 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
+
+Route::get('/client/dashboard', [ClientDashboardController::class, 'index'])
+    ->middleware(['auth', 'radar.role:2'])
+    ->name('client.dashboard');
+
+Route::get('/technician/dashboard', [TechnicianDashboardController::class, 'index'])
+    ->middleware(['auth', 'radar.role:3'])
+    ->name('technician.dashboard');
 
 Route::middleware(['auth', 'radar.role:1'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');

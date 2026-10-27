@@ -1,32 +1,52 @@
-@extends('operations.master.layout')
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#10283b">
+    <title>Radar | Gestão técnica</title>
+    @vite('resources/sass/app.scss')
+</head>
+<body class="public-page">
+    <nav class="public-nav" aria-label="Navegação principal">
+        <a class="public-brand" href="{{ route('home') }}">
+            <span class="brand-mark">R</span>
+            <span>Radar</span>
+        </a>
+        <a class="btn btn-primary" href="{{ Auth::user()->perfil == 3 ? route('admin.tickets.queue') : route('tickets.index') }}">
+            Acessar chamados
+        </a>
+    </nav>
 
-@section('content')
-  <section class="jumbotron text-center mt-5">
-    <div class="container">
-      <h1 class="jumbotron-heading">Radar</h1>
-      <p class="lead text-muted">Gestão de clientes, unidades e equipamentos, com abertura e acompanhamento de chamados de manutenção.</p>
-      @if (Auth::check())
-        <a class="btn btn-primary my-2" href="{{ Auth::user()->perfil == 3 ? route('admin.tickets.queue') : route('tickets.index') }}">Acessar chamados</a>
-      @else
-        <a class="btn btn-primary my-2" href="{{ route('login') }}">Entrar</a>
-      @endif
-    </div>
-  </section>
+    <main>
+        <section class="public-hero">
+            <span class="eyebrow">Operação em um só lugar</span>
+            <h1>Olá, {{ Auth::user()->name }}.</h1>
+            <p>Organize atendimentos, acompanhe equipamentos e mantenha cada etapa do serviço visível para sua equipe.</p>
+            <a class="btn btn-primary" href="{{ Auth::user()->perfil == 3 ? route('admin.tickets.queue') : route('tickets.index') }}">
+                {{ Auth::user()->perfil == 3 ? 'Abrir fila técnica' : 'Ver chamados' }}
+            </a>
+        </section>
 
-  <section class="container py-4" aria-label="Funcionalidades do Radar">
-    <div class="row">
-      <div class="col-md-4">
-        <h2>Chamados</h2>
-        <p>Registre ocorrências e acompanhe o andamento do atendimento.</p>
-      </div>
-      <div class="col-md-4">
-        <h2>Ativos e unidades</h2>
-        <p>Mantenha a estrutura de clientes, unidades e equipamentos organizada.</p>
-      </div>
-      <div class="col-md-4">
-        <h2>Consulta por QR code</h2>
-        <p>Consulte o equipamento identificado e inicie um chamado a partir do código.</p>
-      </div>
-    </div>
-  </section>
-@endsection
+        <section class="public-features" aria-label="Áreas do Radar">
+            <article class="public-feature">
+                <span class="feature-icon" aria-hidden="true">01</span>
+                <h2>Chamados organizados</h2>
+                <p>Registre ocorrências e acompanhe o andamento do atendimento em cada unidade.</p>
+            </article>
+            <article class="public-feature">
+                <span class="feature-icon" aria-hidden="true">02</span>
+                <h2>Ativos conectados</h2>
+                <p>Consulte a estrutura de clientes, unidades e equipamentos em um só fluxo.</p>
+            </article>
+            <article class="public-feature">
+                <span class="feature-icon" aria-hidden="true">03</span>
+                <h2>Atendimento em campo</h2>
+                <p>Use a fila técnica e os QR codes para chegar mais rápido ao equipamento certo.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer class="public-footer">© {{ date('Y') }} Radar · Gestão técnica</footer>
+</body>
+</html>

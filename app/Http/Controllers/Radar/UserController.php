@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Radar;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\Equipment;
+use App\Models\Ticket;
 use App\Models\Technician;
+use App\Models\Unit;
 use App\Models\User;
+use App\Models\WorkOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -99,6 +103,28 @@ class UserController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $ticketStats = Ticket::query()
+            ->selectRaw('COUNT(*) AS total, SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) AS open, SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) AS in_progress, SUM(CASE WHEN status = 2 THEN 1 ELSE 0 END) AS completed')
+            ->first();
+
+        $recentTickets = Ticket::with(['cliente', 'unidade', 'tecnico'])
+            ->orderByDesc('id_chamado')
+            ->limit(8)
+            ->get();
+
+        return view('dashboard', [
+            'metrics' => [
+                'clients' => Client::count(),
+                'units' => Unit::count(),
+                'equipment' => Equipment::count(),
+                'users' => User::count(),
+                'technicians' => Technician::count(),
+                'open_tickets' => (int) ($ticketStats->open ?? 0),
+                'in_progress_tickets' => (int) ($ticketStats->in_progress ?? 0),
+                'completed_tickets' => (int) ($ticketStats->completed ?? 0),
+                'work_orders' => WorkOrder::count(),
+            ],
+            'recentTickets' => $recentTickets,
+        ]);
     }
 }

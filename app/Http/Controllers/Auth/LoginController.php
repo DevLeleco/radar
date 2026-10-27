@@ -37,8 +37,8 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         $destination = match ((int) auth()->user()->perfil) {
-            2 => route('tickets.index'),
-            3 => route('admin.tickets.queue'),
+            2 => route('client.dashboard'),
+            3 => route('technician.dashboard'),
             default => route('admin.dashboard'),
         };
 

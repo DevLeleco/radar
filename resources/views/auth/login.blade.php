@@ -1,22 +1,13 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Entrar | Radar</title>
-    <style>
-        body { font-family: sans-serif; margin: 3rem auto; max-width: 26rem; padding: 0 1rem; }
-        label { display: block; margin: 1rem 0 .35rem; }
-        input { box-sizing: border-box; padding: .6rem; width: 100%; }
-        button { margin-top: 1rem; padding: .6rem 1rem; }
-        .error { color: #a00; }
-    </style>
-</head>
-<body>
-    <h1>Entrar no Radar</h1>
+@extends('auth.layout')
+
+@section('title', 'Entrar')
+
+@section('content')
+    <h1>Boas-vindas</h1>
+    <p class="auth-intro">Entre na sua conta para continuar.</p>
 
     @if ($errors->any())
-        <p class="error" role="alert">Não foi possível entrar com essas credenciais.</p>
+        <p class="auth-error" role="alert">Não foi possível entrar com essas credenciais. Confira os dados e tente novamente.</p>
     @endif
 
     <form method="post" action="{{ route('login') }}">
@@ -27,9 +18,11 @@
         <label for="password">Senha</label>
         <input id="password" type="password" name="password" required autocomplete="current-password">
 
-        <label><input type="checkbox" name="remember" value="1"> Manter conectado</label>
-        <button type="submit">Entrar</button>
+        <div class="remember-row">
+            <input id="remember" type="checkbox" name="remember" value="1">
+            <label for="remember">Manter conectado</label>
+        </div>
+        <button type="submit">Entrar no Radar</button>
     </form>
-    <p><a href="{{ route('password.request') }}">Esqueci minha senha</a></p>
-</body>
-</html>
+    <a class="auth-link" href="{{ route('password.request') }}">Esqueci minha senha</a>
+@endsection

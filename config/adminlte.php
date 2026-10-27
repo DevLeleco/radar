@@ -47,12 +47,12 @@ return [
     |
     */
 
-    'logo' => '<b>Radar</b> | PROMPT<b>',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<span class="brand-mark">R</span><span class="brand-copy">Radar<small>gestão técnica</small></span>',
+    'logo_img' => false,
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'Radar',
 
     /*
     |--------------------------------------------------------------------------
@@ -226,239 +226,20 @@ return [
     */
 
     'menu' => [
+        ['header' => 'OPERAÇÃO'],
         [
-            'text' => 'search',
-            'search' => false,
-            'topnav' => true,
-        ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
-            'text' => 'Painel de Indicadores',
+            'text' => 'Painel gerencial',
+            'route' => 'client.dashboard',
+            'icon' => 'fas fa-fw fa-chart-pie',
             'icon_color' => 'cyan',
-            'url' => '#',
-            'icon' => 'fas fa-chart-bar',
-            //'label'       => 4,
-            //'label_color' => 'success',
+            'can' => 'access-client-dashboard',
         ],
         [
-            'text' => 'Painel de Chamados',
+            'text' => 'Meu painel',
+            'route' => 'technician.dashboard',
+            'icon' => 'fas fa-fw fa-chart-line',
             'icon_color' => 'cyan',
-            'url' => '#',
-            'icon' => 'fas fa fa-phone-square',
-            //'label'       => 4,
-            //'label_color' => 'success',
-        ],
-        /*    ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],*/
-        ['header' => 'CONTROLE DE CHAMADOS'],
-        [
-            'text' => 'Administração',
-            'icon' => 'fas fa-fw fa-archive',
-            'icon_color' => 'cyan',
-            'can' => 'manage-radar',
-            'submenu' => [
-                [
-                    'text' => 'Cadastros',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Cliente',
-                            'route' => 'admin.clients.index',
-                            'icon' => '#',
-                        ],
-                        [
-                            'text' => 'Unidade',
-                            'route' => 'admin.units.index',
-                            'icon' => '#',
-                        ],
-                        [
-                            'text' => 'Equipamento',
-                            'route' => 'admin.equipment.index',
-                            'icon' => '#',
-                        ],
-                        [
-                            'text' => 'Usuário',
-                            'route' => 'admin.users.index',
-                            'icon' => '#',
-                        ],
-                        [
-                            'text' => 'Técnico',
-                            'route' => 'admin.technicians.index',
-                            'icon' => '#',
-                        ],
-                    ],
-                ], [
-                    'text' => 'Consultas',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Q.R Code',
-                            'route' => 'qr-codes.index',
-                            'icon' => '#',
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'Chamados',
-                    'route' => 'admin.tickets.queue',
-                    'icon' => '#',
-                ],
-                [
-                    'text' => 'Ordem de Serviço',
-                    'route' => 'admin.work-orders.index',
-                    'icon' => '#',
-                ],
-                // [
-                //     'text' => 'Sala',
-                //     'url'  => '/sala',
-                // ],
-                // [
-                //     'text' => 'Setor',
-                //     'url'  => '/setor',
-                // ],
-                // [
-                //     'text' => 'Inventário',
-                //     'url'  => '/inventario',
-                // ],
-                // [
-                //     'text' => 'Equipamento',
-                //     'url'  => '/equipamento',
-                // ],
-                // [
-                //     'text' => 'Estoque',
-                //     'url'  => '/estoque',
-                // ],
-                // [
-                //     'text' => 'Movimentação',
-                //     'url'  => '/movimentacao',
-                // ],
-                // [
-                //     'text' => 'Ação',
-                //     'url'  => '/acao',
-                // ],
-
-                /*    [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],*/
-
-            ],
-
-        ],
-
-        [
-            'text' => 'Cliente',
-            'icon' => 'fas fa-fw fa-archive',
-            'icon_color' => 'cyan',
-            'can' => 'access-ticket-area',
-            'submenu' => [
-                [
-                    'text' => 'Chamados',
-                    'route' => 'tickets.index',
-                    'icon' => '#',
-                ],
-                [
-                    'text' => 'Historico de Chamados',
-                    'route' => 'admin.tickets.history',
-                    'icon' => '#',
-                ],
-                [
-                    // 'text' => 'Ramal',
-                    // 'url'  => '/ramalConsulta',
-                ],
-                [
-                    // 'text' => 'Sala',
-                    // 'url'  => '/salaConsulta',
-                ],
-                /*    [
-                    'text' => 'Descrição',
-                    'url'  => '#',
-                ],*/
-                [
-                    // 'text' => 'Inventário',
-                    // 'url'  => '/inventarioConsulta',
-                ],
-                [
-                    // 'text' => 'Equipamento',
-                    // 'url'  => '/equipamentoConsulta',
-                ],
-                [
-                    // 'text' => 'Estoque',
-                    // 'url'  => '/estoqueConsulta',
-                ],
-                [
-                    // 'text' => 'Movimentação',
-                    // 'url'  => 'movimentacaoConsulta',
-                ],
-                /*  [
-                    'text' => 'Logs',
-                    'url'  => 'logConsulta',
-                ],
-               [
-                    'text' => 'Ação',
-                    'url'  => '#',
-                ],
-*/
-
-                /*    [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],*/
-
-            ],
+            'can' => 'access-technician-dashboard',
         ],
         [
             'text' => 'Fila técnica',
@@ -467,37 +248,58 @@ return [
             'icon_color' => 'cyan',
             'can' => 'access-technician-queue',
         ],
-        // ['header' => 'CHAMADOS'],
-        // [
-        //     'text'       => 'Painel de Chamados',
-        //     'icon_color' => 'red',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'warning',
-        //     'icon_color' => 'yellow',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'information',
-        //     'icon_color' => 'cyan',
-        //     'url'        => '#',
-        // ],
+        [
+            'text' => 'Chamados',
+            'route' => 'tickets.index',
+            'icon' => 'fas fa-fw fa-clipboard-list',
+            'icon_color' => 'cyan',
+            'can' => 'access-ticket-area',
+        ],
+        [
+            'text' => 'Histórico',
+            'route' => 'admin.tickets.history',
+            'icon' => 'fas fa-fw fa-history',
+            'icon_color' => 'cyan',
+            'can' => 'access-ticket-area',
+        ],
+        [
+            'text' => 'QR Codes',
+            'route' => 'qr-codes.index',
+            'icon' => 'fas fa-fw fa-qrcode',
+            'icon_color' => 'cyan',
+            'can' => 'access-ticket-area',
+        ],
+        ['header' => 'ADMINISTRAÇÃO'],
+        [
+            'text' => 'Painel administrativo',
+            'route' => 'admin.dashboard',
+            'icon' => 'fas fa-fw fa-chart-pie',
+            'icon_color' => 'cyan',
+            'can' => 'manage-radar',
+        ],
+        [
+            'text' => 'Cadastros',
+            'icon' => 'fas fa-fw fa-th-large',
+            'icon_color' => 'cyan',
+            'can' => 'manage-radar',
+            'submenu' => [
+                ['text' => 'Clientes', 'route' => 'admin.clients.index', 'icon' => 'fas fa-fw fa-building'],
+                ['text' => 'Unidades', 'route' => 'admin.units.index', 'icon' => 'fas fa-fw fa-map-marker-alt'],
+                ['text' => 'Equipamentos', 'route' => 'admin.equipment.index', 'icon' => 'fas fa-fw fa-desktop'],
+                ['text' => 'Usuários', 'route' => 'admin.users.index', 'icon' => 'fas fa-fw fa-users'],
+                ['text' => 'Técnicos', 'route' => 'admin.technicians.index', 'icon' => 'fas fa-fw fa-user-cog'],
+            ],
+        ],
+        [
+            'text' => 'Ordens de serviço',
+            'route' => 'admin.work-orders.index',
+            'icon' => 'fas fa-fw fa-file-alt',
+            'icon_color' => 'cyan',
+            'can' => 'manage-radar',
+        ],
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Menu Filters
-    |--------------------------------------------------------------------------
-    |
-    | Here we can modify the menu filters of the admin panel.
-    |
-    | For detailed instructions you can look the menu filters section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/8.-Menu-Configuration
-    |
-    */
-
-    'filters' => [
+        'filters' => [
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter::class,
