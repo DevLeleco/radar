@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Str;
 
+$mysqlSslCaAttribute = defined('Pdo\\Mysql::ATTR_SSL_CA')
+    ? constant('Pdo\\Mysql::ATTR_SSL_CA')
+    : (defined('PDO::MYSQL_ATTR_SSL_CA') ? constant('PDO::MYSQL_ATTR_SSL_CA') : null);
+
 return [
 
     /*
@@ -15,7 +19,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'pgsql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -46,11 +50,11 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', 'db4free.net'),
+            'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'prompt_teste1'),
-            'username' => env('DB_USERNAME', 'leleco'),
-            'password' => env('DB_PASSWORD', 'leleco85'),
+            'database' => env('DB_DATABASE', 'radar'),
+            'username' => env('DB_USERNAME', ''),
+            'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -59,7 +63,7 @@ return [
             'strict' => true,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+                $mysqlSslCaAttribute => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
 
@@ -68,8 +72,8 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
+            'database' => env('DB_DATABASE', 'radar'),
+            'username' => env('DB_USERNAME', 'radar'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',

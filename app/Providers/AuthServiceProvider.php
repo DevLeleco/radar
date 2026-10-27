@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('manage-radar', fn (User $user) => (int) $user->perfil === User::ROLE_SYSTEM_ADMIN);
+        Gate::define('access-ticket-area', fn (User $user) => in_array((int) $user->perfil, [User::ROLE_SYSTEM_ADMIN, User::ROLE_CLIENT_USER], true));
+        Gate::define('access-technician-queue', fn (User $user) => (int) $user->perfil === User::ROLE_TECHNICIAN);
     }
 }

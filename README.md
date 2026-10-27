@@ -1,78 +1,108 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Radar
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Aplicação web para cadastro de clientes, unidades, equipamentos, usuários e técnicos, além de abertura e acompanhamento de chamados, ordens de serviço e consulta por QR code.
 
-## About Laravel
+## Requisitos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP 8.3 ou superior, conforme `composer.json`.
+- Composer 2.x.
+- PostgreSQL e a extensão PHP `pdo_pgsql` habilitada.
+- Extensões PHP exigidas pelo Laravel/Composer; `composer check-platform-reqs` verifica o ambiente após instalar as dependências.
+- Node.js 24 e npm (a versão principal está indicada em `.nvmrc`) para compilar os assets do frontend.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+O projeto usa Laravel 13, AdminLTE 3, Vite 8 e PostgreSQL por padrão. Não há Dockerfile nem `docker-compose` neste repositório; prepare os serviços localmente ou use um ambiente equivalente.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Executar localmente com PostgreSQL
 
-## Learning Laravel
+Os comandos abaixo assumem um banco novo chamado `radar` e uma role PostgreSQL `radar`. Se já tiver uma role e um banco próprios, use esses valores nas configurações do `.env`.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Instale PHP, Composer, PostgreSQL e Node.js 24. Confirme que o PHP CLI tem `pdo_pgsql` habilitada e instale as dependências do projeto:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+   ```sh
+   composer install
+   composer check-platform-reqs
+   npm ci
+   ```
 
-## Laravel Sponsors
+2. Crie a role e o banco vazios no PostgreSQL. No `psql`, substitua o valor de senha por uma credencial local forte:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+   ```sql
+   CREATE ROLE radar WITH LOGIN PASSWORD 'SENHA_LOCAL_FORTE';
+   CREATE DATABASE radar OWNER radar;
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
+3. Crie o `.env` e configure `APP_URL`, `DB_*` e os dados do primeiro administrador. `RADAR_ADMIN_PASSWORD` deve ter ao menos 12 caracteres. Configure também as variáveis `MAIL_*` se for validar recuperação de senha:
 
-## Contributing
+   ```sh
+   cp .env.example .env
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   O `.env.example` já aponta para PostgreSQL em `127.0.0.1:5432`, banco `radar` e role `radar`. Ajuste esses valores se o serviço local usar outro host, porta, banco ou usuário. Não coloque credenciais reais no Git.
 
-## Code of Conduct
+4. Gere a chave da aplicação:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```sh
+   php artisan key:generate
+   ```
 
-## Security Vulnerabilities
+5. Aplique as migrations e crie o administrador inicial configurado no `.env`:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   ```sh
+   php artisan migrate --seed
+   ```
 
-## License
+   O `DatabaseSeeder` cria o primeiro administrador somente quando `RADAR_ADMIN_NAME`, `RADAR_ADMIN_EMAIL` e `RADAR_ADMIN_PASSWORD` estão definidos. Se o e-mail já existir e não for administrador, a execução para sem alterar essa conta. Guarde a credencial em local seguro e remova a senha do `.env` depois do primeiro uso.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. Compile os assets do frontend:
+
+   ```sh
+   npm run build
+   ```
+
+7. Inicie o servidor local:
+
+   ```sh
+   php artisan serve --host=127.0.0.1 --port=8000
+   ```
+
+Abra `http://127.0.0.1:8000` no navegador. Para recompilar assets automaticamente enquanto desenvolve, use `npm run dev` em outro terminal no lugar de `npm run build`; mantenha esse processo ativo junto com `php artisan serve`.
+
+### Dados locais de demonstração
+
+Opcionalmente, defina `RADAR_DEMO_PASSWORD` no `.env` com ao menos 12 caracteres e execute:
+
+```sh
+php artisan db:seed --class=DemoDataSeeder
+```
+
+Em ambiente `local` ou `testing`, o seeder cria os dados de demonstração. Em outros ambientes exige `RADAR_ALLOW_DEMO_SEED=true`; em produção é sempre bloqueado. Ele pode criar um administrador do sistema caso ainda não exista e usa `RADAR_ADMIN_PASSWORD` quando configurada ou, caso contrário, a senha de demonstração. As contas de cliente e técnico usam a senha de demonstração. Não reutilize essas credenciais fora de uma base local descartável.
+
+### Configurações opcionais
+
+- Configure `MAIL_*` no `.env` para testar envio de redefinição de senha. Os valores de exemplo não são um serviço SMTP funcional.
+- Para limpar configurações em cache após alterar o `.env`, execute `php artisan config:clear`.
+- O script `php artisan serve` é para desenvolvimento. Em produção, configure Apache ou Nginx para servir `public/`, habilite HTTPS, defina `SESSION_SECURE_COOKIE=true`, configure proxy reverso e domínio de sessão, permita escrita PHP em `storage/` e `bootstrap/cache/` e mantenha `APP_DEBUG=false`.
+
+## Banco existente
+
+As migrations de domínio deste repositório foram criadas para uma instalação nova. **Não execute `php artisan migrate` em uma base existente sem antes fazer backup e comparar o esquema e os dados.** As tabelas de negócio podem já existir sem registro na tabela `migrations`; nesse caso, será necessário preparar uma estratégia de reconciliação, importação ou baseline. Verifique duplicidades e relações órfãs antes de adicionar índices únicos e chaves estrangeiras. As migrations de técnicos e de consistência de chamados interrompem com mensagem de reconciliação se os dados não cumprirem as novas relações.
+
+As migrations definem as tabelas `cliente`, `unidade`, `equipamento`, `tecnico`, `chamado` e `os`, além das colunas `id_cliente` e `perfil` em `users`. Chamados têm restrições para garantir que unidade e equipamento pertencem à mesma relação de cliente. Novas ordens de serviço referenciam um chamado concluído; ordens antigas podem permanecer sem vínculo.
+
+## Acesso e contas
+
+- `perfil = 1`: administrador do sistema, com acesso global aos clientes, contas, técnicos e operação.
+- `perfil = 2`: administrador/usuário de cliente, limitado aos chamados, histórico e QR codes do próprio cliente.
+- `perfil = 3`: técnico, com uma conta própria associada a um cliente e a um registro de técnico; só acessa chamados do próprio cliente atribuídos a ele ou ainda sem atribuição.
+- Não existe cadastro público. O primeiro administrador é criado pelo `DatabaseSeeder` quando as três variáveis `RADAR_ADMIN_*` são configuradas; usuários seguintes são administrados pela aplicação.
+- A redefinição de senha envia um link por e-mail. Configure SMTP antes de depender desse fluxo.
+
+Técnicos são usuários distintos, não administradores associados a um cadastro técnico. O cadastro de técnico cria a conta e o registro técnico na mesma transação. A gestão de usuários e de técnicos é restrita ao administrador do sistema.
+
+## Implantação
+
+O `Procfile` contém uma configuração de exemplo para Heroku com Apache e `public/` como raiz web. Configure as variáveis de ambiente e o serviço de banco/SMTP na plataforma antes de publicar.
+
+## Testes
+
+Os testes existentes são exemplos do Laravel e ainda não cobrem as regras de negócio do Radar. Execute a suíte somente depois de preparar um ambiente de teste isolado e implementar migrations compatíveis com esse ambiente.

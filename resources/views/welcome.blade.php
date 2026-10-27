@@ -68,12 +68,12 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ route('home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ route('login') }}">Login</a>
                         @endif
                     @endauth
                 </div>
@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="{{route('rt.dashboard')}}">Zona Restrita</a>
+                    <a href="{{route('admin.dashboard')}}">Zona Restrita</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://blog.laravel.com">Blog</a>

@@ -2,6 +2,8 @@
 
 return [
 
+    'disable_darkmode_routes' => true,
+
     /*
     |--------------------------------------------------------------------------
     | Title
@@ -231,26 +233,26 @@ return [
         ],
         [
             'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'url' => 'admin/blog',
+            'can' => 'manage-blog',
         ],
         [
-            'text'        => 'Painel de Indicadores',
+            'text' => 'Painel de Indicadores',
             'icon_color' => 'cyan',
-            'url'         => '#',
-            'icon'        => 'fas fa-chart-bar',
+            'url' => '#',
+            'icon' => 'fas fa-chart-bar',
             //'label'       => 4,
             //'label_color' => 'success',
         ],
         [
-            'text'        => 'Painel de Chamados',
-             'icon_color' => 'cyan',
-            'url'         => '#',
-            'icon'        => 'fas fa fa-phone-square',
+            'text' => 'Painel de Chamados',
+            'icon_color' => 'cyan',
+            'url' => '#',
+            'icon' => 'fas fa fa-phone-square',
             //'label'       => 4,
             //'label_color' => 'success',
         ],
-    /*    ['header' => 'account_settings'],
+        /*    ['header' => 'account_settings'],
         [
             'text' => 'profile',
             'url'  => 'admin/settings',
@@ -263,59 +265,60 @@ return [
         ],*/
         ['header' => 'CONTROLE DE CHAMADOS'],
         [
-            'text'    => 'Administração',
-            'icon'    => 'fas fa-fw fa-archive',
-             'icon_color' => 'cyan',
+            'text' => 'Administração',
+            'icon' => 'fas fa-fw fa-archive',
+            'icon_color' => 'cyan',
+            'can' => 'manage-radar',
             'submenu' => [
                 [
-                    'text'    => 'Cadastros',
-                    'url'     => '#',
+                    'text' => 'Cadastros',
+                    'url' => '#',
                     'submenu' => [
                         [
                             'text' => 'Cliente',
-                            'url'  => '/cliente',
+                            'route' => 'admin.clients.index',
                             'icon' => '#',
                         ],
                         [
                             'text' => 'Unidade',
-                            'url'  => '/unidade',
+                            'route' => 'admin.units.index',
                             'icon' => '#',
                         ],
                         [
                             'text' => 'Equipamento',
-                            'url'  => '/equipamento',
+                            'route' => 'admin.equipment.index',
                             'icon' => '#',
                         ],
                         [
                             'text' => 'Usuário',
-                            'url'  => '/usuario',
+                            'route' => 'admin.users.index',
                             'icon' => '#',
                         ],
                         [
                             'text' => 'Técnico',
-                            'url'  => '/tecnico',
+                            'route' => 'admin.technicians.index',
                             'icon' => '#',
                         ],
                     ],
-                ],[
-                    'text'    => 'Consultas',
-                    'url'     => '#',
+                ], [
+                    'text' => 'Consultas',
+                    'url' => '#',
                     'submenu' => [
                         [
                             'text' => 'Q.R Code',
-                            'url'  => '/qr',
+                            'route' => 'qr-codes.index',
                             'icon' => '#',
                         ],
                     ],
                 ],
                 [
                     'text' => 'Chamados',
-                    'url'  => '/chamados/tec_chamados',
+                    'route' => 'admin.tickets.queue',
                     'icon' => '#',
                 ],
                 [
                     'text' => 'Ordem de Serviço',
-                    'url'  => '/os',
+                    'route' => 'admin.work-orders.index',
                     'icon' => '#',
                 ],
                 // [
@@ -347,10 +350,7 @@ return [
                 //     'url'  => '/acao',
                 // ],
 
-
-
-
-            /*    [
+                /*    [
                     'text'    => 'level_one',
                     'url'     => '#',
                     'submenu' => [
@@ -376,24 +376,24 @@ return [
                 ],*/
 
             ],
-            
+
         ],
-       
 
         [
-            'text'    => 'Cliente',
-            'icon'    => 'fas fa-fw fa-archive',
+            'text' => 'Cliente',
+            'icon' => 'fas fa-fw fa-archive',
             'icon_color' => 'cyan',
+            'can' => 'access-ticket-area',
             'submenu' => [
-              [
+                [
                     'text' => 'Chamados',
-                    'url'  => '/chamados',
+                    'route' => 'tickets.index',
                     'icon' => '#',
                 ],
                 [
-                     'text' => 'Historico de Chamados',
-                     'url'  => '/chamados/historico',
-                     'icon' => '#',
+                    'text' => 'Historico de Chamados',
+                    'route' => 'admin.tickets.history',
+                    'icon' => '#',
                 ],
                 [
                     // 'text' => 'Ramal',
@@ -403,7 +403,7 @@ return [
                     // 'text' => 'Sala',
                     // 'url'  => '/salaConsulta',
                 ],
-            /*    [
+                /*    [
                     'text' => 'Descrição',
                     'url'  => '#',
                 ],*/
@@ -423,7 +423,7 @@ return [
                     // 'text' => 'Movimentação',
                     // 'url'  => 'movimentacaoConsulta',
                 ],
-              /*  [
+                /*  [
                     'text' => 'Logs',
                     'url'  => 'logConsulta',
                 ],
@@ -433,9 +433,7 @@ return [
                 ],
 */
 
-
-
-            /*    [
+                /*    [
                     'text'    => 'level_one',
                     'url'     => '#',
                     'submenu' => [
@@ -461,6 +459,13 @@ return [
                 ],*/
 
             ],
+        ],
+        [
+            'text' => 'Fila técnica',
+            'route' => 'admin.tickets.queue',
+            'icon' => 'fas fa-fw fa-tools',
+            'icon_color' => 'cyan',
+            'can' => 'access-technician-queue',
         ],
         // ['header' => 'CHAMADOS'],
         // [
